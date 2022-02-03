@@ -24,10 +24,10 @@ function initModels(sequelize) {
   var worship_main = _worship_main(sequelize, DataTypes);
   var worship_main_activity = _worship_main_activity(sequelize, DataTypes);
 
-  worship_main_activity.belongsTo(user, { as: "id_user_user", foreignKey: "id_user"});
-  user.hasMany(worship_main_activity, { as: "worship_main_activities", foreignKey: "id_user"});
-  worship_main_activity.belongsTo(worship_main, { as: "id_worship_worship_main", foreignKey: "id_worship"});
-  worship_main.hasMany(worship_main_activity, { as: "worship_main_activities", foreignKey: "id_worship"});
+  worship_main_activity.belongsTo(user, { as: "user", foreignKey: "id_user" });
+  user.hasMany(worship_main_activity, { as: "worship_main_activities", foreignKey: "id_user" });
+  worship_main_activity.belongsTo(worship_main, { as: "worship_main", foreignKey: "id_worship" });
+  worship_main.hasMany(worship_main_activity, { as: "worship_main_activities", foreignKey: "id_worship" });
 
   return {
     community,
