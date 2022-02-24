@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('wp_posts', {
     ID: {
       autoIncrement: true,
@@ -84,7 +84,8 @@ module.exports = function(sequelize, DataTypes) {
     post_parent: {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0,
+      hierarchy: true
     },
     guid: {
       type: DataTypes.STRING(255),
@@ -156,5 +157,12 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
     ]
-  });
+  },
+    {
+      tableName: 'wp_posts',
+      freezeTableName: true,
+      timestamps: false,
+      hierarchy: true // <-- add this
+    }
+  );
 };

@@ -8,26 +8,22 @@ var models = initModels(sequelize);
 // Get result
 exports.findAll = async (req, res) => {
     try {
-        var paramWhere = {};
+        var paramUser = {};
         if (Object.keys(req.body).length != 0) {
-            var paramWhere = req.body;
+            var paramUser = req.body;
         }
         var param = {
-            attributes: ['ID', 'post_title', 'post_parent'],
+            attributes: ['ID', 'post_title', 'post_type', 'post_status'],
+            where: { post_author: 2, post_type: 'aktivitas_ibadah', post_status: 'publish' },
             include: [{
                 model: models.wp_postmeta,
                 as: 'wp_postmeta',
                 required: true,
-                where: { meta_key: ['gambar', 'kontent'] },
-                include: [{
-                    model: models.wp_posts,
-                    as: 'wp_posts_detail',
-                    required: true,
-                }],
+                where: { meta_key: ['waktu', 'user', 'ibadah'] },
             }],
+
             logging: console.log
         }
-        param.where = paramWhere;
 
         models.wp_posts.findAll(param).then((result) => {
             res.status(200).json({

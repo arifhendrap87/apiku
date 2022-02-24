@@ -1,4 +1,3 @@
-
 const db = require("../config/db.config.js");
 var initModels = require("../models/init-models.js");
 const sequelize = db.sequelize;
@@ -13,8 +12,18 @@ exports.findAll = async (req, res) => {
             var paramWhere = req.body;
         }
         var param = {
-            attributes: ['ID', 'post_title', 'post_parent'],
+            attributes: ['ID', 'post_title', 'post_type'],
+            where: { post_type: 'post', post_status: 'publish' },
             include: [{
+                model: models.wp_comments,
+                as: 'wp_comments',
+                required: true,
+
+
+            },
+
+
+            {
                 model: models.wp_postmeta,
                 as: 'wp_postmeta',
                 required: true,
@@ -24,10 +33,11 @@ exports.findAll = async (req, res) => {
                     as: 'wp_posts_detail',
                     required: true,
                 }],
-            }],
+            }
+            ],
             logging: console.log
         }
-        param.where = paramWhere;
+
 
         models.wp_posts.findAll(param).then((result) => {
             res.status(200).json({

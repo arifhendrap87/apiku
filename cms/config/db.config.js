@@ -6,9 +6,9 @@ const sequelize = new Sequelize('db_wordpress', 'root', '', {
 
 });
 
-sequelize.sync({ force: true }).then(() => {
-    console.log("Drop and Resync with { force: true }");
-});
+// sequelize.sync({ force: true }).then(() => {
+//     console.log("Drop and Resync with { force: true }");
+// });
 
 
 //cek koneksi
@@ -27,9 +27,10 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-
 //Models
-// db.menu = require("../models/menu.js")(sequelize, Sequelize);
+db.wp_options = require("../models/wp_options.js")(sequelize, Sequelize);
+db.wp_users = require("../models/wp_users.js")(sequelize, Sequelize);
+db.wp_posts = require("../models/wp_posts.js")(sequelize, Sequelize);
 // db.user = require("../models/user.js")(sequelize, Sequelize);
 // db.worship_main = require("../models/worship_main.js")(sequelize, Sequelize);
 // db.worship_main_activity = require("../models/worship_main_activity.js")(sequelize, Sequelize);

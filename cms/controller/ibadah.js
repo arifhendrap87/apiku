@@ -13,21 +13,21 @@ exports.findAll = async (req, res) => {
             var paramWhere = req.body;
         }
         var param = {
-            attributes: ['ID', 'post_title', 'post_parent'],
+            attributes: ['ID', 'post_title', 'post_type'],
+            where: { post_type: 'ibadah', post_status: 'publish' },
             include: [{
                 model: models.wp_postmeta,
                 as: 'wp_postmeta',
                 required: true,
-                where: { meta_key: ['gambar', 'kontent'] },
+                where: { meta_key: ['jenis'] },
                 include: [{
                     model: models.wp_posts,
-                    as: 'wp_posts_detail',
+                    as: 'wp_postmeta_detail_com',
                     required: true,
                 }],
             }],
             logging: console.log
         }
-        param.where = paramWhere;
 
         models.wp_posts.findAll(param).then((result) => {
             res.status(200).json({

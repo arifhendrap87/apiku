@@ -124,13 +124,6 @@ module.exports = function(sequelize, DataTypes) {
           { name: "comment_author_email", length: 10 },
         ]
       },
-      {
-        name: "woo_idx_comment_type",
-        using: "BTREE",
-        fields: [
-          { name: "comment_type" },
-        ]
-      },
     ]
   });
 };

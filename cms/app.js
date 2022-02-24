@@ -24,6 +24,11 @@ app.use(function (err, req, res, next) {
 
 //route custom
 require("./routes/menu.js")(app);
+require("./routes/ibadah.js")(app);
+require("./routes/ibadah_activity.js")(app);
+require("./routes/options.js")(app);
+require("./routes/users.js")(app);
+require("./routes/posts.js")(app);
 // require("./routes/user.js")(app);
 // require("./routes/worship_main.js")(app);
 // require("./routes/worship_main_activity.js")(app);
